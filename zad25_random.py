@@ -1,3 +1,11 @@
+#Emil
+#za instalaciju keyboard u VS code
+#1 dolje u terminalu sa ctrl+c izaci iz python koda
+#2 upisati pip install keyboard
+#alternativno
+#unutar VS code stisnuti shift+ctrl+p
+#otvorit ce se gore prozor, utpikati python create terminal i onda napraviti korak 1 i 2 
+
 
 import random 
 from time import sleep #spavanje u kodu
