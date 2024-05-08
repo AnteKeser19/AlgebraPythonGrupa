@@ -2,7 +2,7 @@
 
 oib2=69588154538
 kontrolni_oib=69435151530
-oib1=91032515884 
+oib1="02864160744" # preporučena verzija variable OIB
 
 def oib_tester(oib: int) ->bool:
     """
@@ -11,6 +11,7 @@ def oib_tester(oib: int) ->bool:
     """
     try:
         oib_s=str(int(oib)) #tries if number can be interpreted as integer and after that string
+        oib_s=str(oib)
     except: #if its not, print a message and returns False
         print("oib nije broj")
         return False
