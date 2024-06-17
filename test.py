@@ -1,8 +1,6 @@
 import random
  
 mine=[]
-prikaz_mina=[]
- 
 #9 -> mina
 #-1 -> nije popunjeno zasad
  
@@ -108,112 +106,20 @@ def generiraj_testove(stupaca, redaka, indeks):
 #6#7#8#9#10#11#
 #12#13#14
  
-def unesi_polje(stupaca, redaka):
-    while True:
-        zadnje_slovo=chr(65+stupaca-1)
-        oznaka_polja=input(f'Unesi polje u obliku A1 do {zadnje_slovo}{redaka}: ').upper()
-        slovo=oznaka_polja[0]
-        odabrani_stupac=ord(slovo)-65 # npr. za A->65->0
-        stupac_ok=True
-        if odabrani_stupac<0 or odabrani_stupac>=stupaca:
-            stupac_ok=False
-        broj=oznaka_polja[1:]  #samo dvoznamenkasti brojevi
-        try:
-            odabrani_redak=int(broj)-1  #retci su oznaceni s 1 do n, ali indeksi idu od 0
-            indeks_u_polju=odabrani_redak*stupaca+odabrani_stupac
-            #print(indeks_u_polju)
-        except:
-            continue
-        redak_ok=True
-        if odabrani_redak<0 or odabrani_redak>=redaka:
-            redak_ok=False
-        if stupac_ok and redak_ok:
-            return indeks_u_polju
-        else:
-            continue
  
-def otkrij_polje(indeks):
-    prikaz_mina[indeks]=f'[{mine[indeks]}]'
-    ispisi_2d_listu(stupaca,redaka,prikaz_mina)
-    if mine[indeks]==9:
-        return True, 'Bomba je eksplodirala!'
-    return False, 'Nastavi dalje'
+stupaca=6
+redaka=6
+broj_mina=5
+generiraj_mine(stupaca,redaka,broj_mina)
  
+print(mine)
+print(len(mine))
  
-def igra_gotova():
-    the_end=True
+generiraj_broj_mina(stupaca,redaka)
+print(mine)
  
-    for indeks in range(stupaca*redaka):
-        if prikaz_mina[indeks]=='[ ]' and mine[indeks]!=9:
-            the_end=False
-    return the_end
+# print()
+# print(generiraj_testove(stupaca,redaka,5))
  
-def generiraj_prikaz_mina(stupaca, redaka):
-    global prikaz_mina
-    prikaz_mina=['[ ]' for _ in range(stupaca*redaka)]
- 
- 
- 
- 
- 
-while True:
- 
-    stupaca=6
-    redaka=6
-    broj_mina=5
-    generiraj_mine(stupaca,redaka,broj_mina)  #polje mina popunjeno
-    generiraj_prikaz_mina(stupaca,redaka)  #prazni prikaz mina
- 
- 
-    #print(mine)
-    #print(len(mine))
- 
-    generiraj_broj_mina(stupaca,redaka)  #popunjava brojke za okolinu mina
-    #print(mine)
- 
-    # print()
-    # print(generiraj_testove(stupaca,redaka,5))
- 
-    # print()
-    # ispisi_2d_listu(stupaca,redaka,mine)
-    # print()
-    # print(prikaz_mina)
-    # print()
-    ispisi_2d_listu(stupaca,redaka,prikaz_mina)   #prikazuje na ekranu polje za igranje
-    print()
- 
-    #########GLAVNI#########
-    counter=0
-    while True:
-        counter+=1
-        unos_po_indeksu=unesi_polje(stupaca,redaka)
-        brzi_izlaz,tekst=otkrij_polje(unos_po_indeksu)
- 
-        gotovo=igra_gotova()
-        if gotovo:
-            tekst='Čestitamo, pobijedili ste!'
-        print(tekst)
- 
-        if counter==50 or brzi_izlaz or gotovo:
-            break
-    print('Hvala na igranju')
- 
-    izlaz_iz_igre=input('Nastavi dalje d/n: ').lower()
-    if izlaz_iz_igre=='n':
-        break
- 
- 
-# possible homework
- 
-# zad.1
-# otkrivanje polja radi unosom npr. A1 do F6, 
-# označavanje bombe napraviti unosom *A1 do *F6, s tim da
-# ponovnim unosom istog polja se marker uklanja
-# bombe označiti sa [B]
- 
-# zad.2
-# automatsko otkrivanje polja ukoliko pogodimo polje oznake 0,
-# sve do rubova s nekim brojem
- 
-# zad.3
-# upozoriti ukoliko je neko polje vec otvoreno 
+print()
+ispisi_2d_listu(stupaca,redaka,mine)
