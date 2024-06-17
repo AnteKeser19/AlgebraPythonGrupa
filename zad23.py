@@ -1,44 +1,50 @@
-# beskonacna petlja
-# x za izlaz
-# u za unos imena
-# i za ispis dobivenog imena
+import requests
+from bs4 import BeautifulSoup
  
-# u - provjerava duzinu imena, pa ako je manja od 2 slova, trazi ponovni unos
-# nakon ispravnog unosa vraca prihvaceno ime
+URL='http://books.toscrape.com/'
  
-# i - prima jednu vrijednost (ime), i ispisuje poruku "Dobar dan {ime}!"
+opis_ocjena={
+    "One":1,
+    "Two":2,
+    "Three":3,
+    "Four":4,
+    "Five":5
+}
  
-# x - break outa iz while petlje
+cijena_selector=".price_color"
+naslov_selector=".product_pod h3 a"
+ocjena_selector=".star-rating"
  
-ime = ''
  
-def meni():
-    print('\n\033[1m-----MENI-----\033[0m')
-    print('u: Unos imena')
-    print('i: Ispis imena')
-    print('x: Izlaz')
+podaci=requests.get(URL).content
+sadrzaj=BeautifulSoup(podaci,'html.parser')
  
-def unos():
-    global ime
-    while True:
-        ime = input('Molimo unesite ime: ').capitalize()
-        if len(ime) < 2:
-            continue
-        else:
-            break
+# print(sadrzaj)
  
-def ispis(ime):
-    print(f'Dobar dan, {ime}!')
+cijene=sadrzaj.select(cijena_selector)
+naslovi=sadrzaj.select(naslov_selector)
+ocjene=sadrzaj.select(ocjena_selector)
  
-while True:
-    meni()
-    odabir = input('Unesite zeljenu opciju: ').lower()
-    print()
-    if odabir == 'x':
-        break
-    elif odabir == 'u':
-        unos()
-    elif odabir == 'i':
-        ispis(ime)
-    else:
-        print('Molimo unesite validan izbor!')
+print(cijene[0].get_text())
+print(naslovi[0])
+print(naslovi[0]['title'])
+print(ocjene[0]['class'][1])
+opisna_engleska_ocjena=ocjene[0]['class'][1]
+print(opis_ocjena[opisna_engleska_ocjena])
+ 
+print('*'*50)
+ 
+for cijena in cijene:
+    print(cijena.get_text())
+ 
+for naslov in naslovi:
+    print(naslov['title'])
+ 
+for ocjena in ocjene:
+    print(opis_ocjena[ocjena['class'][1]])
+ 
+print()
+ 
+for cijena, naslov, ocjena in zip(cijene, naslovi, ocjene):
+    print(f"Knjiga \"{naslov['title']}\" ocjenjena je s {opis_ocjena[ocjena['class'][1]]} zvjezdice, a cijena joj je {cijena.get_text()}")
+

@@ -1,11 +1,16 @@
-# broj_bodova=[53,42,73,94]
-# for i in range (len(broj_bodova)):
-#     ocjena = int(((broj_bodova[i] -50) // 12.5) +2)
-#     print(ocjena)
-
-max_bodova = 100
-
-broj_bodova=[53,42,73,94]
-for i in range (len(broj_bodova)):
-    ocjena = int(((broj_bodova[i] - (max_bodova/2)) // (max_bodova/8)) +2)
-    print(ocjena)
+file_writer = open('ime.txt','w')
+ime=input('Unesite vase ime: ')
+file_writer.write(ime)
+file_writer.close()
+ 
+file_reader=open('ime.txt','r')
+file_data=file_reader.read()
+file_reader.close()
+ 
+print(f'Sadrzaj datoteke je\n{file_data}')
+ 
+mate_cita=open('ime.txt','r')
+matini_podaci=mate_cita.read()
+mate_cita.close()
+ 
+print(f'Sadrzaj datoteke je\n{matini_podaci}')
